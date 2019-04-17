@@ -1,5 +1,3 @@
-{-#LANGUAGE ScopedTypeVariables#-}
-
 module Lib
   ( someFunc
   ) where
@@ -18,10 +16,16 @@ sampleProduct = Product "a" 12345 20.25;
 tax :: Double
 tax = 0.2
 
+discount :: Double
+discount = 0.15
+
+(|#|) :: Double -> Product -> Double
+(|#|) percentage = (*) percentage . price
+
 format :: Double -> String
 format = printf "%.2f"
 
 someFunc :: IO ()
 someFunc = do
-    putStrLn $ "Price before tax: " ++ (format $ price sampleProduct)
-    putStrLn $ "Price before tax: " ++ (format $ (price sampleProduct * (1 + tax)))
+    putStrLn $ "Base price: " ++ (format $ price sampleProduct)
+    putStrLn $ "Price with tax and discount: " ++ (format $ ((1 + tax - discount) |#| sampleProduct))
