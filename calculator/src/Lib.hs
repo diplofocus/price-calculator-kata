@@ -1,13 +1,11 @@
 module Lib
-  ( Tax
-  , Product(..)
+  ( Product(..)
   , (|#|)
   , format
   ) where
 
 import Text.Printf (printf)
 
-type Tax = Double
 data Product = Product
   { name :: String
   , upc :: Int
